@@ -40,6 +40,11 @@
         public function handle()
         {
 
+            if (env('APP_URL') === 'http://localhost'){
+                $this->error('Please don\'t forget to set your APP_URL in your .env file');
+                return;
+            }
+
             $invite = new Invite();
 
             $invite->fill([
@@ -54,7 +59,6 @@
                 ->setToken();
 
             $invite->save();
-
 
             \Mail::send(new InviteCreatedMail($invite));
 
