@@ -42,7 +42,7 @@
 
             if (env('APP_URL') === 'http://localhost'){
                 $this->error('Please don\'t forget to set your APP_URL in your .env file');
-                return;
+                return false;
             }
 
             $invite = new Invite();
@@ -60,7 +60,15 @@
 
             $invite->save();
 
-            \Mail::send(new InviteCreatedMail($invite));
+            try{
+                \Mail::send(new InviteCreatedMail($invite));
+            }
+            catch(\Exception $e) {
+
+                $this->error('Cannot send email (' . $e->getMessage() . ')');
+                return false;
+
+            }
 
 
         }
