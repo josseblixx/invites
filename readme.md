@@ -48,3 +48,4 @@ php artisan blixx:invite sponge@bob.com "Sponge Bob"
 ### Warning!!!
 
 This package is not actively maintained, please don't use it in production! Also: we're currently not taking pull requests, so don't bother. Tnx ;)
+
