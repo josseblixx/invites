@@ -2,6 +2,7 @@
 
     namespace Blixx\Invite\Helpers;
 
+    use Blixx\Invite\Mail\InviteCreatedMail;
     use Blixx\Invite\Models\Invite;
 
     class InviteService
@@ -75,5 +76,25 @@
         {
             return !$invite->is_used;
         }
+
+
+        public function createInvite($data)
+        {
+
+            $invite = new Invite();
+
+            $invite
+                ->fill($data)
+                ->setExpiration()
+                ->setToken();
+
+            $invite->save();
+
+            \Mail::send(new InviteCreatedMail($invite));
+
+            return $invite;
+
+        }
+
 
     }
