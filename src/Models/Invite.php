@@ -52,7 +52,12 @@
 
         public function setToken()
         {
-            $this->fill(['token'=>\Str::random(6)]);
+            if (class_exists('Str')){
+                $this->fill(['token'=>\Str::random(6)]);
+            }
+            else{
+                $this->fill(['token'=>sha1(microtime(true) . 'xxxxxxxxxsaltxxxxxxxxx@#$%^&*(*&%#@#$%^&*^$#@#$%^&*')]);
+            }
             return $this;
         }
 
